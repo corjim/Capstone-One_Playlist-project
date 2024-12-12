@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid mt-5">
+    {% if songs %}
+    <!-- User Stats Section -->
+    <div class="col" id="home-list">
+
+        <ul class="list-group list-group-flush mt-5 display-5">
+            <li class="list-group-item d-flex justify-content-between align-items-start mb-2">
+                <div class="ms-2 me-auto m-5">
+                    <div class="fw-bold">My playtify <i>(favs)</i> </div>
+
+                </div>
+                <a href="">
+                    <span class="badge text rounded-pill">{{ user.fav_songs | length }}</span></a>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start mb-2">
+                <div class="ms-2 me-auto m-5">
+                    <div class="fw-bold">
+                        My Songs
+                    </div>
+
+                </div>
+                <span class="badge text rounded-pill">{{ songs | length}}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start mb-2">
+                <div class="ms-2 me-auto m-5">
+                    <div class="fw-bold">Playlist For You</div>
+
+                </div>
+
+                <span class="badge text rounded-pill">{{ playlists | length}}</span>
+            </li>
+        </ul>
+
+    </div>
+    {% else %}
+    <!-- No Playlists Section -->
+    <div class="row justify-content-center">
+        <div class="col-md-8 text-center">
+            <h2 class="display-4">Welcome!</h2>
+            <p class="lead">It seems you have not created any playlists yet.</p>
+            <a href="/create_playtifylist" class="btn btn-primary btn-lg">Create a Playlist</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

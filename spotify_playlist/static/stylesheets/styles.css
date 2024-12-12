@@ -1,0 +1,308 @@
+/* ========== General ============ */
+
+body {
+    background: linear-gradient(100deg, #6e7076bb 0%, #605ca3 120%);
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+.btn {
+    border-radius: 60px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+/* ========= Nav ============== */
+
+.navbar {
+    background-image: url(/static/images/playtify-logo.jpg);
+    background-size: cover;
+    background-position: center;
+    background-color: #0a2082;
+    height: 110px;
+    border-bottom: 5px solid rgba(211, 208, 208, 0.25);
+    margin-bottom: 1rem;
+    position: relative;
+    z-index: 9999;
+}
+
+.navbar a {
+    color: #e8edf2;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.navbar a:hover {
+    color: #1c94e0;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand>img {
+    display: inline-block;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    width: 20px;
+    border-radius: 2px;
+}
+
+.nav>li>a>img {
+    width: 32px;
+    border-radius: 32px;
+}
+
+ul.nav.navbar-nav {
+    align-items: center;
+}
+
+ul.nav.navbar-nav li {
+    margin: 0 0.5rem;
+    display: flex;
+}
+
+nav form.navbar-form {
+    display: flex;
+    position: relative;
+}
+
+#search.form-control {
+    border-radius: 20px;
+    margin-bottom: 0;
+    width: 100%;
+    font-size: 25px;
+    padding-right: 28px;
+    box-sizing: border-box;
+}
+
+#search.form-control+.btn {
+    position: absolute;
+    right: 30px;
+    top: 12px;
+    bottom: 4px;
+    z-index: 1;
+    font-size: 25px;
+    padding: 2px;
+    color: #343232;
+}
+
+#search.form-control+.btn:active,
+#search.form-control+.btn:focus {
+    box-shadow: none;
+}
+
+#search:active,
+#search:focus {
+    box-shadow: none;
+    border: 2px solid #007bff;
+}
+
+.onboarding .navbar-header {
+    margin: 0 auto;
+}
+
+.onboarding .navbar-brand {
+    margin: 0;
+}
+
+.onboarding .navbar-brand span {
+    display: none;
+}
+
+.onboarding .nav.navbar-nav.navbar-right {
+    position: absolute;
+    right: 16px;
+}
+
+.onboarding>.navbar a {
+    color: #574949;
+}
+
+.onboarding>.navbar form.navbar-form {
+    display: none;
+}
+
+.onboarding {
+    background-color: #0f0000;
+}
+
+@media (max-width: 468px) {
+    nav form.navbar-form {
+        display: none;
+    }
+}
+
+nav+.container {
+    margin-bottom: 1rem;
+}
+
+
+.full-width {
+    width: 100vw;
+    margin: 0 -50vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+}
+
+.row.full-width {
+    background-color: #fff;
+    margin-top: -80px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    height: 60px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .full-width .user-stats .stat {
+        display: none;
+    }
+}
+
+/* ============ Signed out home ================*/
+
+.home-hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    left: 0;
+    z-index: -1;
+    background-image: url("/static/images/playtify-logo.jpg");
+    background-size: cover;
+    background-position: center center;
+    color: #bebeac;
+    font-size: 40px;
+    text-align: center;
+    padding: 1rem;
+    text-shadow: 0 0 8px #292a2a;
+}
+
+.home-hero .btn {
+    text-shadow: none;
+    position: relative;
+    z-index: 1;
+    width: 150px;
+}
+
+.home-hero h1 {
+    margin-bottom: 4rem;
+}
+
+.home-hero:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============ Signup/Login ==============*/
+
+#user_form input.form-control {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+/* Platify detail html */
+/* Detail header */
+#detail-head {
+    background-color: #d0d3d6;
+    box-shadow: 2px 2px 2px #1c1c1a;
+    border-radius: 5px;
+}
+
+/* HOMEPAGE style */
+#home-list>ul>li {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-image: url(/static/images/playtify-logo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+    border-radius: 15px;
+}
+
+#home-list>ul>li span {
+    background-color: rgb(34, 3, 3);
+}
+
+#home-list>ul>li span:hover {
+    background-color: white;
+}
+
+#home-list>li:hover {
+    cursor: pointer;
+}
+
+#aside-home {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 1px 0px #333;
+}
+
+/* Background styling  artist-tracks.htm*/
+.artist-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('{{ artist.images[0]["url"] if artist.images else "" }}');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+    filter: brightness(0.5);
+}
+
+/* Content container */
+.content-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* STYLES FOR ALBUM SECTION */
+#album-body {
+    background-image: url("{{ album.image | safe }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.album_overlay {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+}
+
+.album-btn {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    border: 1px solid white;
+}
+
+.album-btn:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: black;
+}

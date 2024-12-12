@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="card" style="width: 18rem;">
+
+                <img src="{{artist['images'][0]['url']}}" class="card-img-top" alt="{{artist['name']}}">
+
+                <div class="card-body">
+                    <h2 class="card-title"><a href="/artist_id">{{artist['name']}}</a></h2>
+
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item"><b><em>Genre: </em></b>{{artist['genres']}}</li>
+
+                    <li class="list-group-item">
+
+                        <b><em>Followers: </em></b>{{artist['followers']['total']}}
+
+
+                    </li>
+                    <li class="list-group-item">A third item</li>
+                </ul>
+                <div class="card-body">
+                    <a href="#" class="card-link">Card link</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

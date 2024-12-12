@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main id="album-body">
+    <div class="container-fluid vh-100 d-flex flex-column justify-content-center align-items-center">
+        <div class="album_overlay text-center mb-5">
+            <h1 class="display-1">{{ album.name }}</h1>
+            <p class="lead"><em>Released: {{ album.release_date }}</em></p>
+            <button id="view-tracks" type="button" class="btn btn-primary btn-sm mt-3 album-btn">
+                View Tracks
+            </button>
+            <a href="/">
+                <button id="backToptracks" type="button" class="btn btn-secondary btn-sm mt-3 album-btn">
+                    Back to Top Tracks
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="album-tracks" style="display: none;">
+                    {% if album.tracks %}
+                    <h4 class="display-5 text-center">Tracks in the Album</h4>
+
+                    <ul class="list-group">
+                        {% for track in album.tracks %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <span>{{ track.name }}</span>
+
+                            <form method="POST" action="/add_album_tracks" class="form-inline d-inline">
+
+                                <input type="hidden" name="track_name" value="{{ track.name }}">
+
+                                <input type="hidden" name="track_id" value="{{ track.id }}">
+
+                                {% for artist in track.artists %}
+                                <input type="hidden" name="artist_name" value="{{ artist.name }}">
+                                {% endfor %}
+
+                                <input type="hidden" name="album_id" value="{{ album.id }}">
+
+                                <input type="hidden" name="track_duration" value="{{ track.duration_ms }}">
+
+                                {% if track.popularity %}
+                                <input type="hidden" name="track_popularity" value="{{ track.popularity }}">
+                                {% endif %}
+
+                                {% if track in user.songs %}
+                                <button class="btn btn-danger btn-sm">-</button>
+                                {% else %}
+                                <button class="btn btn-info btn-sm">+</button>
+                                {% endif %}
+                            </form>
+
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,25 @@
+MUSIC APP PROJECT
+
+	  This project will focus mainly on user diving thru the pool of music world to search, select, view history and play musics of their favorite musicians.
+
+
+	-  https://apilist.fun/api/spotify
+
+Playtify Database Documentation
+
+The project would wholely based on the use of spotify APIs to build a music application.
+
+The application made use of client_id and client_secret to create authorization flow code.
+
+With this app, users can be able to create a profile, search for artist(s), gain access to their top 10 tracks.
+
+With the app, user after creating a profile can see artist's album up search, explore each album and review all the tracks in the album. User can also add songs of their choice from the album tracks to their song list.
+
+User can be able to create personal playlist and add songs from their song list.
+
+User can also search other user and view their profile, like their playlist and that would be part of the like profiles. You can see how many like you  have as well as others.
+
+User should be able to favorite a song to their favorite list if they want to make a preference of certain songs they wish be listen to.
+
+Lastly, the app now gives user the ability to listen to ONLY the preview of the sound of the songs.
+

@@ -1,0 +1,41 @@
+{% extends 'users/detail.html' %}
+
+{% block user_details %}
+<div class="col-sm-9">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="mb-4">Liked Playlists</h3>
+            {% if likes %}
+            <ul class="list-group" id="liked-playlists">
+                {% for playlist in likes %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <!-- Playlist Info -->
+                    <div>
+                        <h5 class="mb-1">
+                            <a href="/playlists/{{ playlist.id }}" class="playlist-link text-decoration-none text-dark">
+                                📻 {{ playlist.name }}
+                            </a>
+                        </h5>
+                        <small class="text-muted">By {{ playlist.owner }}</small>
+                    </div>
+
+                    <!-- Like/Unlike Button -->
+                    {% if user.id == g.user.id %}
+                    <form method="POST" action="/playlists/{{ playlist.id }}/like" class="d-inline-block">
+                        <button
+                            class="btn btn-sm {{ 'btn-primary' if playlist.id in likes else 'btn-outline-secondary' }}">
+                            <i class="fa fa-thumbs-up"></i>
+                            {{ 'Unlike' if playlist.id in likes else 'Like' }}
+                        </button>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="text-muted text-center mt-4">No liked playlists to show.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

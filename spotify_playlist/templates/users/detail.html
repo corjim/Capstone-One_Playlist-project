@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container my-5" id="detail-head">
+    <div class="row text-light p-5"
+        style="background: url('{{ user.image_url }}') no-repeat center center/cover; border-radius: 10px;">
+        <!-- User Stats and Actions -->
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="text-shadow">{{ user.username }}</h1>
+                {% if g.user.id == user.id %}
+                <div>
+                    <form method="POST" action="/users/delete" class="d-inline">
+                        <button class="btn btn-outline-light">Delete Profile</button>
+                    </form>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="row text-center display-5">
+                <div class="col-sm-3">
+                    <h4>
+                        <a href="/songs" class="text-light text-decoration-none">
+                            {{ songs | length }}
+                        </a>
+                    </h4>
+                    <p class="text-shadow text-light">Songs</p>
+                </div>
+                <div class="col-sm-3">
+                    <h4>
+                        <a href="/playlists" class="text-light text-decoration-none">{{ user.playlists | length }}</a>
+                    </h4>
+                    <p class="text-shadow text-light">Playlists</p>
+                </div>
+                <div class="col-sm-3">
+                    <h4>
+                        <a href="/songs" class="text-light text-decoration-none">{{ fav_songs | length }}</a>
+                    </h4>
+                    <p class="text-shadow text-light">Favorites</p>
+                </div>
+                <div class="col-sm-3">
+                    <h4>
+                        <a href="/users/{{ user.id }}/likes" class="text-light text-decoration-none">{{ user.likes |
+                            length }}</a>
+                    </h4>
+                    <p class="text-shadow text-light">Likes</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <!-- User Details Section -->
+    <div class="row">
+        {% block user_details %}
+
+        {% endblock %}
+    </div>
+</div>
+
+
+{% endblock %}

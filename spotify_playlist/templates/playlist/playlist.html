@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if playlist.songs %}
+
+{% for song in playlist.songs %}
+
+
+<div class="container-fluid mt-4">
+
+    <!-- Display Songs -->
+    <div class="row">
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card mb-4 shadow-sm">
+
+                <div class="card-body ">
+
+                    <div class="text-danger">
+                        <ul>
+                            <li>
+                                <b>{{song.title}}</b> by <i>{{song.artist}}</i>
+                            </li>
+                        </ul>
+                        <div class="d-flex justify-content-between">
+                            <!-- Play Button -->
+                            <a href="/play_song/{{ song.id }}" class="btn btn-sm btn-success">▶</a>
+
+                            <!-- Remove from Playlist -->
+                            <form action="/remove_from_playlist/{{ playlist.id }}/{{ song.id }}" method="POST"
+                                style="display: inline;">
+                                <button class="btn btn-sm btn-danger">🚮</button>
+                            </form>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endfor %}
+<!-- Action Buttons -->
+<a class="btn btn-primary" href="/playlists/{{ playlist.id }}/add-song">
+    Pin more songs
+</a>
+{% else %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-9 text-center">
+            <h4 class="display-5">
+                No song to display. Add songs below
+            </h4>
+            <a class="btn btn-primary" href="/playlists/{{ playlist.id }}/add-song">
+                Add Song To Playlist
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Playlists</h2>
+
+    <!-- Display Playlist Info -->
+    {% if playlists %}
+    {% for playlist in playlists%}
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3 class="card-title"><a href="/playlists/{{ playlist.id }}">{{ playlist.name }}</a></h3>
+                    <p class="card-text">{{ playlist.description }}</p>
+                    {% if playlist.pl_img %}
+                    <img src="{{ playlist.pl_img }}" alt="{{ playlist.name }}" class="img-fluid rounded mb-3"
+                        style="max-width: 300px;">
+
+                </div>
+                <div class="col-md-6 align-items-end">
+                    <form action="/playlists/{{ playlist.id }}/delete" method="POST" style="display: inline;"> <button
+                            class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Remove
+                        </button></form>
+                </div>
+
+
+
+                {% endif %}
+
+            </div>
+        </div>
+
+    </div>
+    {%endfor%}
+    <a class="btn btn-primary" href="/create_playtifylist">More playtifylist</a>
+    {% else%}
+
+    <div class="text-center mt-3">
+        <h4 class="text-muted mt-4">No Songs Available.</h4>
+        <h5 class="text-muted mt-4">No Playlist.....Create One and Playtify 0n
+        </h5>
+        <a class="btn btn-primary mt-4" href="/create_playtifylist">Create Your Playtifylist</a>
+    </div>
+
+    {% endif %}
+
+    <!-- Display Songs -->
+    <div class="row">
+        {% if songs %}
+        {% for song in songs %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <!-- Song Info -->
+                    <h5 class="card-title">{{ song.title }}</h5>
+                    <p class="card-text">
+                        <strong>Artist:</strong> {{ song.artist }}<br>
+                        {% if song.duration %}
+                        <strong>Duration:</strong> {{ song.duration }}
+                        {% endif %}
+                    </p>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-between">
+                        <!-- Play Button -->
+                        <a href="/play_song/{{ song.id }}" class="btn btn-sm btn-success">Play</a>
+
+                        <!-- Add to Favorites -->
+                        <form action="/add_to_favorites/{{ song.id }}" method="POST" style="display: inline;">
+                            <button class="btn btn-sm btn-warning">Favorite</button>
+                        </form>
+
+                        <!-- Remove from Playlist -->
+                        <form action="/remove_from_playlist/{{ playlist.id }}/{{ song.id }}" method="POST"
+                            style="display: inline;">
+                            <button class="btn btn-sm btn-danger">Remove</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock %}

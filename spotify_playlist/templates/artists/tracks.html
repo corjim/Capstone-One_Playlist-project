@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container-fluid full-width mt-4">
+    <!-- Artist Section -->
+    <div class="artist-section"
+        style="position: sticky; top: 0; background-image: url('{{ artist.images[0]['url'] }}'); background-size: cover; background-position: center; height: 400px;">
+        <div class="overlay text-center d-flex flex-column justify-content-center"
+            style="background: rgba(0, 0, 0, 0.6); height: 100%;">
+            <h1 class="text-white">{{ artist.name }}</h1>
+            <p class="text-white"><strong>Genre:</strong> {{ artist.genres | join(", ") }}</p>
+            <p class="text-white"><strong>Followers:</strong> {{ artist.followers }}</p>
+        </div>
+    </div>
+
+    <!-- Tracks Section -->
+    <div class="tracks-section mt-4 text-center">
+        {% if artist %}
+        <h2>Top Tracks by {{ artist.name }}</h2>
+        <button id="toggle-tracks" class="btn btn-primary btn-sm mt-3">Toggle Top 10 Tracks</button>
+        {% else %}
+        <p>No artist or track found!</p>
+        {% endif %}
+
+        {% if tracks %}
+        <div class="show_tracks mt-4" style="display:block;">
+            <div class="row">
+                {% for track in tracks.name %}
+                <div class="col-md-6 col-lg-4 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ track.name }}</h5>
+
+                            <p class="card-text"><strong>Popularity:</strong> {{ track.popularity }}</p>
+                            <form method="POST" action="/add_playlist_songs" class="form-inline">
+
+                                <input type="hidden" name="track_name" value="{{ track.name }}">
+                                <input type="hidden" name="artist_name" value="{{ artist.name }}">
+                                <input type="hidden" name="track_duration" value="{{ track.duration_ms }}">
+                                <input type="hidden" name="track_id" value="{{ track.id }}">
+                                <input type="hidden" name="track_popularity" value="{{ track.popularity }}">
+
+                                {% if track in user.fav_songs %}
+                                <button class="btn btn-danger btn-sm">Remove from Favorites</button>
+                                {% else %}
+                                <button class="btn btn-success btn-sm">Add Song</button>
+                                {% endif %}
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Albums Section -->
+    <div class="row mt-5">
+        <h5 class="text-center display-5 mb-4"> {{artist.name}}'s Greatest Album Hitz</h5>
+        {% for album in albums %}
+        <div class="col-md-4 col-lg-3 mb-4">
+            <div class="card">
+                <img src="{{ album.image }}" class="card-img-top" alt="{{ album.album_name }} cover">
+                <div class="card-body">
+                    <h5 class="card-title">{{ album.album_name }}</h5>
+                    <a href="/show_album_tracks/{{ album.id }}" class="btn btn-primary btn-sm"
+                        data-id="{{ artist.id }}">
+                        Explore Album!
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
