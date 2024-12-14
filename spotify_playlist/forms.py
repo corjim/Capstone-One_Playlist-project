@@ -2,8 +2,6 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SelectField
 from wtforms.validators import DataRequired, Email, Length
 
-
-
 class AddUserForm(FlaskForm):
     '''Provides form to add user'''
 
@@ -29,6 +27,6 @@ class CreatePlaylistForm(FlaskForm):
 
 
 class NewSongForPlaylistForm(FlaskForm):
-    """Form for adding a song to playlist."""
+    """Form for adding songs to playlist."""
 
     song = SelectField("Pick 'n' Playtify ", coerce=int)

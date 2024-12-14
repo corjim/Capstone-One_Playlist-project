@@ -6,11 +6,8 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, json
 from flask_bcrypt import Bcrypt
 
-
 bcrypt = Bcrypt()
 load_dotenv()
-
-
 db = SQLAlchemy()
 
 client_id = os.getenv("CLIENT_ID")
@@ -104,7 +101,6 @@ class User(db.Model):
         backref=db.backref('favorited_by', lazy='dynamic')  # Gives Song a 'favorited_by' attribute
     )
 
-
     playlists = db.relationship(
         'Playlist',
         secondary='playlists_songs',
@@ -122,7 +118,6 @@ class User(db.Model):
     def get_token():
         auth_string = client_id + ":" + client_secret
     
-
         auth_bytes = auth_string.encode("utf-8")
 
         auth_base64 = str(base64.b64encode(auth_bytes), "utf-8")
@@ -153,10 +148,8 @@ class User(db.Model):
     @classmethod
     def signup(cls, username, email, password, image_url):
         """Sign up user.
-
-        Hashes password and adds user to system.
+            Hashes password and adds user to database.
         """
-
         hashed_pwd = bcrypt.generate_password_hash(password).decode('UTF-8')
 
         user = User(
@@ -171,8 +164,6 @@ class User(db.Model):
 
     @classmethod
     def authenticate(cls, username, password):
-
-
         """Find user with `username` and `password`."""
 
         user = cls.query.filter_by(username=username).first()
@@ -180,13 +171,13 @@ class User(db.Model):
         if user:
             is_auth = bcrypt.check_password_hash(user.password, password)
             if is_auth:
-                
                 return user
 
         return False
     
-
 class Song(db.Model):
+    """ Song table """
+
     __tablename__ = 'songs'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -210,16 +201,15 @@ class Song(db.Model):
         return f'<Title = {p.title}, artist = {p.artist}'
     
 class UserSongs(db.Model):
+    ''' maps song to user'''
 
     __tablename__ = 'user_songs'
-
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     song_id = db.Column(db.Integer, db.ForeignKey('songs.id'), nullable=False)
     
 
 class Likes(db.Model):
-    
     """Mapping user likes to playlist."""
 
     __tablename__ = 'likes' 

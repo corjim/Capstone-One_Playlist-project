@@ -118,14 +118,10 @@ def show_all_user():
 
     search = request.args.get('p')
 
-    print("PPPPPPPPPPPPPPPPPPPPPPP",search)
-
     if not search:
         users = User.query.all()
-        print("user if not", users)
     else:
         users = User.query.filter(User.username.like(f"%{search}%")).all()
-        print("users for else", users)
     return render_template('users/index.html', user=users)
 
 
@@ -134,11 +130,6 @@ def users_show(user_id):
     """Show user profile."""
 
     user = User.query.get_or_404(user_id)
-
-    print("PPPPPPPPPPSSS", user)
-
-    # snagging messages in order from the database;
-    # user.messages won't be in order by default
     playlists = (Playlist
                 .query
                 .filter(Playlist.user_id == user_id)
@@ -200,17 +191,13 @@ def delete_user():
 
     if not g.user:
         flash("Access unauthorized.", "danger")
-
-    
         return redirect(url_for("homepage"))
     
-
     do_logout()
     db.session.delete(g.user)
     db.session.commit()
 
     flash("Account delete: Successful", "success")
-
     return redirect(url_for("signup"))
    
 
@@ -222,13 +209,11 @@ def search_artist():
         flash("Access unauthorized.", "danger")
         return redirect("/")
     
-
-    artist_name = request.args.get('artist')  # Fallback artist for homepage
+    # Fallback artist for homepage
+    artist_name = request.args.get('artist')  
     if not artist_name:
-
         return flash("Access unauthorized: Please log add songs.", "danger")
     
-
     token = User.get_token()
     headers = User.get_auth_header(token)
     url = "https://api.spotify.com/v1/search"
@@ -237,7 +222,6 @@ def search_artist():
     result = get(url, headers=headers, params=query_params)
     json_result = json.loads(result.content).get('artists', {}).get('items', [])
 
-   
     if not json_result:
         return {"error": f"No artist found for {artist_name}"}
 
@@ -254,7 +238,6 @@ def search_artist():
     albums_info = albums_json
     
     if not albums_json:
-
         return {"error": f"No album found for artist {artist_name}"}
     
     albums_info = []
@@ -281,19 +264,16 @@ def search_artist():
         'tracks': track_names
         })
     
-
     # Get the artist's top track
     tracks_url = f"https://api.spotify.com/v1/artists/{artist_id}/top-tracks"
     tracks_params = {'market': 'US'}
     tracks_result = get(tracks_url, headers=headers, params=tracks_params)
     tracks_json = json.loads(tracks_result.content).get('tracks', [])
 
-
     if not tracks_json:
         return {"error": f"No tracks found for artist {artist_name}"}
 
     song_name = tracks_json
- 
     resp ={
             "artist": {
                 "id": artist_id,
@@ -310,12 +290,10 @@ def search_artist():
             "album": {
                 "name" : albums_info  
             }
-
         }
     return (resp)
 
-
-# Gets artist top tracks
+# Get artist top tracks
 @app.route('/artist_top_tracks')
 def artist_top_tracks():
 
@@ -324,7 +302,6 @@ def artist_top_tracks():
         return redirect("/")
 
     artist_data = search_artist()
-   
     artist = artist_data.get('artist')
     tracks  = artist_data.get('track')
     albums_result = artist_data.get("album")
@@ -332,11 +309,10 @@ def artist_top_tracks():
 
     return render_template('artists/tracks.html', artist=artist, tracks=tracks, albums=albums, user=g.user)
 
-
-# Adds top tracks to user's favorite songs
+# Adds artist's top tracks to user's favorite songs
 @app.route('/add_playlist_songs', methods=["POST"])
 def add_song():
-    '''Add tracks to user song list and stay on the same page.'''
+    '''Add tracks to user's song list and stay on the same page.'''
     if not g.user:
         flash("Access unauthorized: Please log in to add songs.", "danger")
         return redirect("/")
@@ -381,7 +357,7 @@ def add_song():
    
     flash(f"'{track_name}' by {artist_name} has been added to your favorites.", "success")
 
-    return redirect(request.referrer or "/")  # Stay on the same page
+    return redirect(request.referrer or "/")   
 
 # Displays artist album details
 @app.route("/show_album_tracks/<album_id>")
@@ -404,10 +380,8 @@ def show_album_tracks(album_id):
         return redirect("/")
 
     albums_json = json.loads(albums_result.content)
-    
 
     if albums_json is None:
-
         return flash("No albums found or an error occurred.", "info")
         
     #  Process album and review details
@@ -448,13 +422,9 @@ def add_album_tracks():
     track_popularity = request.form.get('track_popularity')
     album_id = request.form.get('album_id')
     track_id = request.form.get('track_id')
-    
-    print("QQQQQQQQQQQKKKK",track_id)
-    print("QQQQQQQQQQQKKKK", track_name)
-
+  
     if not track_name or not artist_name:
         flash("Invalid song details provided.", "danger")
-
         return redirect("/")
 
     # Check if the song exists in the Song table
@@ -474,20 +444,7 @@ def add_album_tracks():
         db.session.commit()
 
         flash(f"'{track_name}' by {artist_name} has been added to your songs list.", "success")
-
-
-    # Toggle the song in the user's favorites
-    # if song in user.fav_songs:
-    #     user.fav_songs.remove(song)  # Remove the song from favorites
-    #     db.session.commit()
-    #     flash(f"'{track_name}' by {artist_name} has been removed from your favorites.", "info")
-    # else:
-    #     user.fav_songs.append(song)  # Add the song to favorites
-    #     db.session.commit()
-    #     flash(f"'{track_name}' by {artist_name} has been added to your favorites.", "success")
-
     return redirect(f'show_album_tracks/{album_id}')  
-
 
 ##################################################
 #            Playlists routes
@@ -505,6 +462,7 @@ def show_playlists():
 
     return render_template('/playlist/playlists.html', playlists=playlists)
 
+# View individual playlist
 @app.route('/playlists/<int:playlist_id>')
 def show_playlist_details(playlist_id):
     """Show details of a playlist"""
@@ -513,11 +471,7 @@ def show_playlist_details(playlist_id):
         flash("Access unauthorized: Please log in.", "danger")
         return redirect("/")
 
-
     playlist = Playlist.query.get_or_404(playlist_id)
-
-    # playlist song not working
-    print([song for song in playlist.songs])
 
     if not playlist: 
         return flash (f'Playlist not found', "info") 
@@ -536,10 +490,10 @@ def add_playlist():
     userId = g.user.id
 
     if form.validate_on_submit():
+        #  Extract values from form
         name = form.name.data
         description = form.description.data
-        
-
+    
         playlist = Playlist(name=name, description=description,user_id = userId)
 
         db.session.add(playlist)
@@ -549,7 +503,6 @@ def add_playlist():
         
         return redirect('/playlists')
     else:
-        # want the window to create a playlist be a modal.
         return render_template('/playlist/addplaylist.html', form=form)
 
 #  Add songs to playtifylist
@@ -607,7 +560,6 @@ def delete_playtifylist(playlist_id):
 
     return redirect("/playlists")
 
-
 # PLAYLIST ITEMS (To delete and play playlist songs)
 @app.route("/remove_from_playlist/<int:playlist_id>/<int:song_id>", methods=["POST"])
 def remove_song_from_playlist(playlist_id, song_id):
@@ -624,7 +576,7 @@ def remove_song_from_playlist(playlist_id, song_id):
     # Check the current user owns the playlist
     if playlist.user_id != g.user.id:
         flash("You do not have permission to modify this playlist.", "danger")
-        return redirect(request.referrer or '/')
+        return redirect(url_for('playlists'))
 
     # Check if the song is in the playlist
     if song in playlist.songs:
@@ -637,10 +589,11 @@ def remove_song_from_playlist(playlist_id, song_id):
     return redirect(f"/playlists/{playlist_id}")
 
 # Work on this route once all playlist routes are completed!!
+# This is meant to display randoms playlist on homepage.
 @app.route("/get_playlists")
 def get_playlists():
     """Gets an API playlist"""
-
+# ROUTE ON PROCESS
     if not g.user:
         flash("Access unauthorized please log in get playlist.", "danger")
         return redirect("/")
@@ -698,10 +651,6 @@ def get_playlists():
 def show_all_songs():
     """Show all songs in users profile."""
 
-    # ###########################################
-    #  ROUTE IS WORKING PERFECTLY!!!
-    # ###########################################
-
     if not g.user:
         flash("Access unauthorized: Please log in to view songs.", "danger")
         return redirect("/")
@@ -725,7 +674,6 @@ def show_song(song_id):
     song = Song.query.get(song_id)
 
     if not song:
-
         return flash(f'Song not found', "warning")
 
     return render_template('/users/song.html', song=song)
@@ -733,9 +681,7 @@ def show_song(song_id):
 @app.route('/add_to_favorites/<int:song_id>', methods=['POST'])
 def add_to_favorites(song_id):
     """Add a song to the user's favorites."""
-# ###########################################
-    #  ROUTE IS WORKING PERFECTLY!!!
-    # ###########################################
+
     if not g.user:
         flash("Access unauthorized: Please log in to add songs to favorites.", "danger")
         return redirect("/")
@@ -776,13 +722,10 @@ def remove_from_favorite(song_id):
 @app.route("/remove_song/<int:song_id>",methods=['POST'])
 def delete_song(song_id):
     """Delete song from Song list"""
-# ###########################################
-    #  ROUTE IS WORKING PERFECTLY!!!
-    # ###########################################
+
     if not g.user:
        return flash("Access unauthorized: Please log in to remove song", "info")
     
-    user = g.user
     song = Song.query.get_or_404(song_id)
 
     # Delete the song from the database
@@ -792,7 +735,6 @@ def delete_song(song_id):
 
     return redirect("/songs")
 
-
 @app.route('/')
 def homepage():
     
@@ -800,15 +742,12 @@ def homepage():
        id = g.user.id
        
        songs = Song.query.filter_by(user_id=g.user.id).all()
-       print("I MAMAMAMAMAMA SOOONN", songs)
        playlists = Playlist.query.filter_by(user_id=id).all()
-    #    print("PPPPPPPP", playlists)
 
        return render_template('home.html',songs=songs,user=g.user, playlists=playlists)
     
     else:
-        # Implete codes here
-            return render_template('home-anon.html')
+        return render_template('home-anon.html')
 
 
 #  Time Conversion for the song duration.
@@ -836,7 +775,6 @@ def convert_duration(ms):
     # if ms > 0: 
     #         parts.append(f"{ms}ms") 
     return " ".join(parts)
-
 
 
 if __name__ == "__main__":
