@@ -1,6 +1,7 @@
 # Playtify 🎵  
 A playlist management web application where users can create playlists, add their favorite songs, preview the sound of the song, and interact with others by liking playlists. Playtify aims to mimic the core functionalities of music platforms, enabling seamless organization and display of songs and playlists. Users can view other user's profile to see the list of their playlist and the songs they have under their radar, user can also keep tracks of other user's playlists through the like.
 
+https://playtify-song-app.onrender.com
 ---
 
 ## Table of Contents
@@ -126,13 +127,54 @@ Below is the database schema that models the relationships between users, playli
    - Flask Forms for handling form data  
 ---
 
+## Routes
+
+### User Routes:
+- / → Home page displaying songs, playlists, and stats.
+- /user/<int:user_id> → User profile page.
+- /create_playlist → Form for creating a new playlist.
+- /add_to_favorites → Add songs to user's favorite list.
+- /playlists/<int:playlist_id>/like → Like a playlist.
+
+### Playlist Routes:
+- /playlists → Display all playlists.
+- /playlists/<int:playlist_id> → Show details of a specific playlist.
+- /playlists/<int:playlist_id>/add → Add songs to a playlist.
+- /playlists/<int:playlist_id>/delete → Delete a playlist.
+
+### Song Routes:
+- /songs → List all songs.
+- /play_song/<int:song_id> → Play a song (under development).
+- /remove_from_favorite/<int:song_id> → Remove a song from favorites.
+
+
+## Setup and Installation
+
+### Prerequisites:
+- Python 3.x installed
+- Virtual environment setup
+
+- ### Steps:
+
+1. Clone the repository
+- git clone https://github.com/corjim/playtify.git
+- cd playtify
+
+2. Create a virtual environment:
+- python -m venv venv
+- source venv/bin/activate
+
+3. Install dependencies:
+- pip install -r requirements.txt
+
+4. Initialize the database:
+- flask run.
+- Access the app at: http://localhost:5000
 ## Future Enhancements
 - Integrate real song streaming functionality.
-- Add user authentication (sign up, login, and logout).
 - Allow playlist collaboration between multiple users.
 - Implement API integration for real-time song data.
-
 ---
 
 ## Credits  
-Developed by: [corjim]  
+Developed by: github- corjim

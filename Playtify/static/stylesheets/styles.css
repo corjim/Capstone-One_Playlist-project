@@ -1,0 +1,503 @@
+/* ========== General ============ */
+
+body {
+    background: linear-gradient(100deg, #080808bb 0%, #12102e 120%);
+}
+
+.form-control {
+    margin-bottom: 20px;
+}
+
+.btn {
+    border-radius: 60px;
+}
+
+.btn:hover {
+    cursor: pointer;
+}
+
+/* ========= Nav ============== */
+.navbar {
+    background-image: url("../images/default_playlist_img.jpg");
+    background-size: cover;
+    background-position: center;
+    background-color: #0a2082;
+    height: 110px;
+    border-bottom: 5px solid rgba(211, 208, 208, 0.25);
+    /* margin-bottom: 1rem; */
+    position: relative;
+    z-index: 9999;
+}
+
+.navbar a {
+    color: #cacdd1;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.logOut {
+    font-size: 15px;
+}
+
+.navbar a:hover {
+    color: #1c94e0;
+}
+
+.navbar-brand {
+    margin-left: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand>img {
+    display: inline-block;
+    margin-bottom: 2px;
+    margin-right: 5px;
+    width: 10px;
+    border-radius: 2px;
+}
+
+.nav>li>a>img {
+    width: 32px;
+    border-radius: 32px;
+}
+
+ul.nav.navbar-nav {
+    align-items: center;
+}
+
+ul.nav.navbar-nav li {
+    margin: 0 0.5rem;
+    display: flex;
+}
+
+nav form.navbar-form {
+    display: flex;
+    position: relative;
+}
+
+#search.form-control {
+    position: relative;
+    display: inline;
+    border-radius: 10px;
+    margin-bottom: 0;
+    width: 55%;
+    font-size: 20px;
+    font-weight: bold;
+    left: 150px;
+
+    padding-right: 80px;
+    box-sizing: border-box;
+}
+
+#search.form-control+.btn {
+    position: relative;
+    left: 115px;
+    z-index: 1;
+    font-size: 20px;
+    display: inline;
+    padding: 2px;
+    color: #343232;
+}
+
+#search.form-control+.btn:active,
+#search.form-control+.btn:focus {
+    box-shadow: none;
+}
+
+#search:active,
+#search:focus {
+    box-shadow: none;
+    border: 2px solid #007bff;
+}
+
+.onboarding .navbar-header {
+    margin: 0 auto;
+}
+
+.onboarding .navbar-brand {
+    margin: 0;
+}
+
+.onboarding .navbar-brand span {
+    display: none;
+}
+
+.onboarding .nav.navbar-nav.navbar-right {
+    position: absolute;
+    right: 16px;
+}
+
+.onboarding>.navbar a {
+    color: #574949;
+}
+
+.onboarding>.navbar form.navbar-form {
+    display: none;
+}
+
+.onboarding {
+    background-color: #0f0000;
+}
+
+@media (max-width: 468px) {
+    nav form.navbar-form {
+        display: none;
+    }
+}
+
+nav+.container {
+    margin-bottom: 1rem;
+}
+
+.full-width {
+    width: 100vw;
+    margin: 0 -50vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+}
+
+.row.full-width {
+    background-color: #fff;
+    margin-top: -80px;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #ccc;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.25);
+    height: 60px;
+    align-items: center;
+}
+
+@media (max-width: 768px) {
+    .full-width .user-stats .stat {
+        display: none;
+    }
+}
+
+/* ============ Signed out home ================*/
+
+.home-hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    left: 0;
+    z-index: -1;
+    background-image: url("/static/images/default_playlist_img.jpg");
+    background-size: cover;
+    background-position: center center;
+    color: #bebeac;
+    font-size: 40px;
+    text-align: center;
+    padding: 1rem;
+    text-shadow: 0 0 8px #292a2a;
+}
+
+.home-hero .btn {
+    text-shadow: none;
+    position: relative;
+    z-index: 1;
+    width: 150px;
+}
+
+.home-hero h1 {
+    margin-bottom: 4rem;
+}
+
+.home-hero:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* ============ Signup/Login ==============*/
+
+#user_form input.form-control {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px;
+}
+
+
+/* Platify detail html */
+/* Detail header */
+#detail-head {
+    background-color: #d0d3d6;
+    box-shadow: 2px 2px 2px #1c1c1a;
+    border-radius: 5px;
+}
+
+/* HOMEPAGE style */
+#home-list>ul>li {
+    color: rgba(255, 255, 255, 0.651);
+    width: 50vw;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    background-image: url("../images/default_playlist_img.jpg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+    border-radius: 15px;
+    margin-left: 200px;
+}
+
+#home-list>ul>li span {
+    background-color: rgb(34, 3, 3);
+}
+
+#home-list>ul>li span:hover {
+    background-color: white;
+}
+
+#home-list>li:hover {
+    cursor: pointer;
+}
+
+#aside-home {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: bold;
+    text-shadow: 1px 0px #333;
+}
+
+/* Song sections styling */
+
+#songs-container {
+    background-color: #333;
+}
+
+#no-song-display {
+    color: rgb(172, 172, 165);
+    font-weight: bold;
+}
+
+#headline-div {
+    font-weight: bold;
+    background-color: rgba(27, 17, 17, 0.935);
+    border-radius: 5px;
+    color: rgb(230, 237, 6);
+}
+
+#song-details {
+    background-color: rgba(22, 24, 22, 0.863);
+    transition: transform 0.2s ease;
+}
+
+#song-details:hover {
+    transition: scale(1.1);
+}
+
+#song-info h5 {
+    color: beige;
+
+}
+
+#song-info .song-artist {
+    color: rgb(201, 201, 191);
+}
+
+/* Background styling Top Artist-tracks.*/
+.artist-background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90vh;
+    position: sticky;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -1;
+    filter: brightness(0.9);
+}
+
+/* Artist top track background */
+#artist-top-tracks-bg {
+    background-color: rgba(14, 14, 14, 0.81);
+    margin: 30px;
+    border-radius: 10px;
+    box-shadow: 2px 3px 3px rgba(30, 9, 9, 0.751);
+}
+
+/* content for top track artist name, genre, followers */
+.overlay {
+    color: beige;
+    width: 35%;
+    margin-left: 40%;
+    margin-top: 90px;
+    font-weight: bold;
+    background-color: rgb(22, 24, 22);
+    border-radius: 20px;
+}
+
+#toggle-tracks {
+    background-color: rgba(81, 56, 56, 0.313);
+    color: beige;
+
+}
+
+#track-headline {
+    background-color: rgb(22, 24, 22);
+    color: beige;
+    font-weight: bold;
+    font-size: 60px;
+}
+
+#artist-top-tracks {
+    color: beige;
+    background-color: rgb(22, 24, 22);
+    border-radius: 10px;
+    box-shadow: 0px 4px 5px rgba(81, 56, 56, 0.313);
+    transition: transform 0.5s ease;
+}
+
+#artist-top-tracks:hover {
+    transform: scale(1.1);
+    background-color: #010e0c;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#artist-top-tracks #att-btn {
+    background-color: rgba(65, 65, 7, 0.674);
+    color: beige;
+}
+
+#artist-top-tracks #att-btn:hover {
+    background-color: beige;
+    color: #333;
+
+}
+
+/* Styles for the album page */
+
+/* Album List headline */
+#track-album-headline {
+    background-color: rgb(22, 24, 22);
+    font-weight: bold;
+    color: beige;
+    margin: 30px;
+    border-radius: 10px;
+}
+
+/* Album List Style */
+#track-album-background {
+    margin: 20px;
+    background-color: #1b111172;
+}
+
+#track-album-content {
+    color: beige;
+    border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+
+#track-album-content:hover {
+    transform: scale(1.1);
+    background-color: #010e0c;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+#track-album-items {
+    font-weight: bold;
+    color: beige;
+    background-color: rgb(34, 31, 31);
+}
+
+#track-album-content #att-btn {
+    color: beige;
+    background-color: rgb(22, 24, 22);
+}
+
+#track-album-content #att-btn:hover {
+    background-color: beige;
+    color: #333;
+    font-weight: bold;
+}
+
+/* End of Top Artist Tracks */
+
+/* STYLES FOR ALBUM SECTION/PAGE */
+.album-background {
+    border-radius: 10px;
+    box-shadow: 5px 5px 3px solid white;
+    margin-right: 15px;
+    width: 100vw;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: brightness(0.8);
+    overflow: hidden;
+
+}
+
+.album_overlay {
+    background-color: rgba(22, 24, 22, 0.34);
+    color: beige;
+    height: 450px;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#overlay-headline {
+    border-radius: 12px;
+    font-weight: bold;
+    color: beige;
+    text-shadow: 5px 2px #13131313;
+}
+
+.album_overlay .rd {
+    border-radius: 10px;
+    background-color: #010c1232;
+    font-size: 40px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.7);
+    text-shadow: 1px 2px #13131313;
+}
+
+.album-btn {
+    background: rgba(50, 212, 193, 0.3);
+    font-size: 20px;
+    font-weight: bold;
+    color: beige;
+    border: 5px solid white;
+}
+
+
+#view-track:hover {
+    background: rgba(255, 255, 255, 0.5);
+    color: rgb(19, 73, 58);
+}
+
+#album-tracks-bg {
+    background-color: #100f0fac;
+    font-size: 30px;
+    margin: 2px;
+    border-radius: 10px solid #333;
+    color: beige;
+}
+
+#album-tracks-bg:hover {
+    transform: scale(0.9);
+    background-color: #010e0c;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+
+}
+
+#album-tracks-btn {
+    color: rgb(12, 11, 11);
+    background-color: white;
+}
+
+#album-tracks-btn:hover {
+    background-color: rgb(65, 2, 2);
+    color: beige;
+}

@@ -14,7 +14,7 @@
         integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
-    <link rel="stylesheet" href="/static/stylesheets/styles.css">
+    <link rel="stylesheet" href="../static/stylesheets/styles.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
 </head>
 
@@ -23,7 +23,7 @@
         <div class="container-fluid">
             <div class="navbar navbar-expand-lg">
                 <a href="/" class="navbar-brand">
-                    <img src="/static/images/playtify-logo.jpg" alt="logo">
+
                     <span>Playtify</span>
                 </a>
                 {% if g.user%}
@@ -55,24 +55,13 @@
                         <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
                     </a>
                 </li>
-                <li><a href="/logout">Log out</a></li>
+                <li class="logOut"><a href="/logout">Log out</a></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
 
     <div class="row">
-
-        <aside id="aside-home" class="col-md-auto text-center">
-            <h4>
-                Welcome to Platify, a user friendly app that gives you a window to escape life reality,
-            </h4>
-            <h5>Search for artist, add their songs to your list and preview the sound only </h5>
-
-            <h6>
-                Hope you enjoy using this app as we enjoyed making it for you.
-            </h6>
-        </aside>
 
         <div class="col-lg-12 col-md-8 col-sm-12">
             {% for category, message in get_flashed_messages(with_categories=True) %}
@@ -89,12 +78,22 @@
             {% endblock %}
 
         </div>
-
     </div>
+
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">&copy; Playtify. All rights reserved.</p>
+            <p class="small">
+                <a href="https://github.com/corjim/CapstoneOneProject" class="text-light">GitHub</a> |
+                <a href="#" class="text-light">Privacy</a> |
+                <a href="#" class="text-light">Terms</a>
+            </p>
+        </div>
+    </footer>
 
 </body>
 
 <script src="/static/app.js"></script>
-<script src="https://sdk.scdn.co/spotify-player.js"></script>
+<!-- <script src="https://sdk.scdn.co/spotify-player.js"></script> -->
 
 </html>

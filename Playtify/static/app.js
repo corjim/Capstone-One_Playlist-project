@@ -38,51 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // Function to control or play tracks with the play button.
-    // NEGLECT>>>>> WORK IN PROGRESS!!
-    // const playButtons = document.querySelectorAll('.play-btn');
-    // const audioPlayer = new Audio();
-    // let currentPlayingButton = null;
 
-    // playButtons.forEach(button => {
-    //     button.addEventListener('click', () => {
-    //         const audioUrl = button.getAttribute('data-audio-url');
-
-    //         if (audioPlayer.src !== audioUrl || audioPlayer.paused) {
-    //             // Stop any currently playing song
-    //             audioPlayer.pause();
-    //             if (currentPlayingButton) {
-    //                 currentPlayingButton.textContent = 'Play';
-    //             }
-
-    //             // Play the new song
-    //             audioPlayer.src = audioUrl;
-    //             audioPlayer.play();
-    //             button.textContent = 'Pause';
-    //             currentPlayingButton = button;
-    //         } else {
-    //             // Pause if already playing
-    //             audioPlayer.pause();
-    //             button.textContent = 'Play';
-    //             currentPlayingButton = null;
-    //         }
-    //     });
-    // });
-
-    // Reset button text when playback ends
-    // audioPlayer.addEventListener('ended', () => {
-    //     if (currentPlayingButton) {
-    //         currentPlayingButton.textContent = 'Play';
-    //         currentPlayingButton = null;
-    //     }
-
-    // });
 
 });
 
-
-
-// Timer to auto-hide flash message
+// Timer to auto-hide flash messages
 setTimeout(() => {
     const flashMessage = document.getElementById("flash-message");
     if (flashMessage) {
@@ -93,11 +53,57 @@ setTimeout(() => {
         // Remove the element after fading out
         setTimeout(() => {
             flashMessage.remove();
-        }, 300); // Fade out transition
+        }, 300);
     } else {
         console.warn("Flash message not found!");
     }
-}, 1000); nds
+}, 3000);
+
+
+// Function to control or play tracks with the play button.
+// NEGLECT>>>>> WORK IN PROGRESS!!
+// const playButtons = document.querySelectorAll('.play-btn');
+// const audioPlayer = new Audio();
+// let currentPlayingButton = null;
+
+// playButtons.forEach(button => {
+//     button.addEventListener('click', () => {
+//         const audioUrl = button.getAttribute('data-audio-url');
+
+//         if (audioPlayer.src !== audioUrl || audioPlayer.paused) {
+//             // Stop any currently playing song
+//             audioPlayer.pause();
+//             if (currentPlayingButton) {
+//                 currentPlayingButton.textContent = 'Play';
+//             }
+
+//             // Play the new song
+//             audioPlayer.src = audioUrl;
+//             audioPlayer.play();
+//             button.textContent = 'Pause';
+//             currentPlayingButton = button;
+//         } else {
+//             // Pause if already playing
+//             audioPlayer.pause();
+//             button.textContent = 'Play';
+//             currentPlayingButton = null;
+//         }
+//     });
+// });
+
+// Reset button text when playback ends
+// audioPlayer.addEventListener('ended', () => {
+//     if (currentPlayingButton) {
+//         currentPlayingButton.textContent = 'Play';
+//         currentPlayingButton = null;
+//     }
+
+// });
+
+
+
+
+
 
 
 

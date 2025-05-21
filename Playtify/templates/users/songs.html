@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
     <link rel="stylesheet" href="/static/stylesheets/styles.css">
     <link rel="shortcut icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/spotify_playlist/static/stylesheets/styles.css">
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
@@ -23,7 +24,6 @@
         <div class="container-fluid">
             <div class="navbar navbar-expand-lg">
                 <a href="/" class="navbar-brand">
-                    <img src="/static/images/playtify-logo.jpg" alt="logo">
                     <span>Playtify</span>
                 </a>
                 {% if g.user%}
@@ -38,24 +38,17 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if request.endpoint != None %}
                 <li>
-                    <form class="navbar-form navbar-right" action="artist_top_tracks">
-                        <input name="artist" class="form-control" placeholder="Search songs/artists" id="search">
-                        <button class="btn btn-default">
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </form>
+
                 </li>
                 {% endif %}
-                {% if not g.user %}
-                <li><a href="/signup">Sign up</a></li>
-                <li><a href="/login">Log in</a></li>
-                {% else %}
+                {% if g.user %}
                 <li>
                     <a href="/users/{{ g.user.id }}">
                         <img src="{{ g.user.image_url }}" alt="{{ g.user.username }}">
                     </a>
                 </li>
-                <li><a href="/logout">Log out</a></li>
+                <li class="logOut"><a href="/logout">Log out</a>
+                </li>
                 {% endif %}
             </ul>
         </div>
@@ -65,31 +58,44 @@
     {% for category, message in get_flashed_messages(with_categories=True) %}
 
     <div id="flash-message" class="alert alert-{{ category }} info alert-dismissible fade show " role="alert">
-        {{ message }}
-
+        <p class="display-5"> {{ message }}</p>
         <button type="button" class="btn-close" data -dismise="alert" aria-label="Close"></button>
     </div>
-
     {% endfor %}
+    <div class="container">
+        <ul class="row">
+            <li>
+                <form class="navbar-form navbar-right" action="artist_top_tracks">
+                    <input name="artist" class="form-control text-center" placeholder="Search artists" id="search">
+                    <button class="btn btn-default">
+                        <span class="fa fa-search"></span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </div>
+
     <div class="container-fluid mt-5">
-        <div class="row">
+        <div class="row songs-headline">
             <!-- Songs Section -->
-            <div class="col-lg-6">
-                <div class="card shadow-sm">
-                    <div class="card-header text-black">
-                        <h2 class="text-center">All Songs</h2>
+
+            <div id="songs-container" class="col-lg-6">
+                <div class="card shadow-sm ">
+                    <div id="headlne-div" class="text-black">
+                        <h2 id="sh-h2" class="text-center">All Songs
+
+                        </h2>
                     </div>
                     <div class="card-body">
                         {% if songs %}
-
                         {% for song in songs %}
-                        <div class="card mb-3">
+                        <div id="song-details" class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Song Info -->
-                                    <div>
+                                    <div id="song-info">
                                         <h5 class="card-title">{{ song.title }}</h5>
-                                        <p class="card-text">
+                                        <p class="song-artist">
                                             <strong>Artist:</strong> {{ song.artist }}<br>
                                             {% if song.duration %}
                                             <strong>Duration:</strong> {{ song.duration | convert_duration }}
@@ -99,10 +105,12 @@
 
                                     <!-- Action Buttons -->
                                     <div>
-                                        <iframe src="https://open.spotify.com/embed/track/{{ song.track_id }}"
-                                            width="300" height="80" frameborder="0" allowtransparency="true"
-                                            allow="encrypted-media">
-                                        </iframe>
+                                        <div>
+                                            <iframe src="https://open.spotify.com/embed/track/{{ song.track_id }}"
+                                                width="300" height="80" frameborder="0" allowtransparency="true"
+                                                allow="encrypted-media" style="background-color: rgb(29, 28, 28);">
+                                            </iframe>
+                                        </div>
 
                                         <form action="/add_to_favorites/{{ song.id }}" method="POST"
                                             style="display: inline;">
@@ -130,12 +138,11 @@
                                 </div>
                             </div>
                         </div>
-                        {% endfor %}
 
+                        {% endfor %}
                         {% else %}
-                        <div class="text-center">
-                            <p class="text-muted">No songs available.</p>
-                            <a href="/get_playlists" class="btn btn-primary">Get a Playlist</a>
+                        <div id="no-song-display" class="text-center">
+                            <p>You have no songs in dah bag. Search for artist!</p>
                         </div>
                         {% endif %}
                     </div>
@@ -143,21 +150,22 @@
             </div>
 
             <!-- Favorites Section -->
-            <div class="col-lg-6">
+
+            <div id="songs-container" class="col-lg-6">
                 <div class="card shadow-sm">
-                    <div class="card-header text-dark">
-                        <h2 class="text-center">Favorite Songs</h2>
+                    <div id="headline-div" class="card-header">
+                        <h2 id="sh-h2" class="text-center">Favorite Songs</h2>
                     </div>
                     <div class="card-body">
                         {% if fav_songs %}
                         {% for song in fav_songs %}
-                        <div class="card mb-3">
+                        <div id="song-details" class="card mb-3">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Song Info -->
-                                    <div>
+                                    <div id="song-info">
                                         <h5 class="card-title">{{ song.title }}</h5>
-                                        <p class="card-text"><strong>Artist:</strong> {{ song.artist }}
+                                        <p class="song-artist"><strong>Artist:</strong> {{ song.artist }}
                                             <br>
                                             {% if song.duration %}
                                             <strong>Duration:</strong> {{ song.duration | convert_duration}}
@@ -167,12 +175,16 @@
 
                                     <!-- Action Buttons -->
                                     <div>
-                                        <iframe src="https://open.spotify.com/embed/track/{{ song.track_id }}"
-                                            width="300" height="80" frameborder="0" allowtransparency="true"
-                                            allow="encrypted-media">
-                                        </iframe>
+                                        <div>
+                                            <iframe src="https://open.spotify.com/embed/track/{{ song.track_id }}"
+                                                width="300" height="80" frameborder="0" allowtransparency="true"
+                                                allow="encrypted-media">
+                                            </iframe>
+                                        </div>
 
-                                        <button class="btn btn-sm btn-danger">Remove</button>
+                                        <form action="/remove_from_favorite/{{ song.id }}" method="POST"
+                                            style="display: inline;">
+                                            <button class="btn btn-sm btn-danger">Remove</button>
                                         </form>
                                     </div>
                                 </div>
@@ -180,10 +192,11 @@
                         </div>
                         {% endfor %}
                         {% else %}
-                        <div class="text-center">
-
-                            <p class="text-muted">No favorite songs yet.
+                        <div id="no-song-display" class="text-center">
+                            <p class="text-muted">No favorite songs yet. Add songs and start favoriting.
                             </p>
+
+                            <a href=""></a>
 
                         </div>
                         {% endif %}
@@ -195,5 +208,16 @@
 
     <script src="/static/app.js"></script>
     <script src="https://sdk.scdn.co/spotify-player.js"></script>
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-1">&copy; Playtify. All rights reserved.</p>
+            <p class="small">
+                <a href="https://github.com/your-repo" class="text-light">GitHub</a> |
+                <a href="#" class="text-light">Privacy</a> |
+                <a href="#" class="text-light">Terms</a>
+            </p>
+        </div>
+    </footer>
+</body>
 
 </html>

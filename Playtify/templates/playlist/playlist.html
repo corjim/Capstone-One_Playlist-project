@@ -23,8 +23,11 @@
                             </li>
                         </ul>
                         <div class="d-flex justify-content-between">
-                            <!-- Play Button -->
-                            <a href="/play_song/{{ song.id }}" class="btn btn-sm btn-success">▶</a>
+
+                            <iframe src="https://open.spotify.com/embed/track/{{ song.track_id }}" width="300"
+                                height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"
+                                style="background-color: rgb(29, 28, 28);">
+                            </iframe>
 
                             <!-- Remove from Playlist -->
                             <form action="/remove_from_playlist/{{ playlist.id }}/{{ song.id }}" method="POST"

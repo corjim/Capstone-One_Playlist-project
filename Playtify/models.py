@@ -1,9 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
-from requests import post, get
+from requests import post, get, RequestException
 import os
+import logging
 import base64
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, json
+from flask import Flask, request, json
 from flask_bcrypt import Bcrypt
 
 bcrypt = Bcrypt()
@@ -12,13 +13,16 @@ db = SQLAlchemy()
 
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
-playlist_img = "/static/images.playtify-logo.jpg"
+playlist_img = "/static/images.default-pic.jpg"
+
+logger = logging.getLogger(__name__)
 
 def connect_db(app):
     """Connect to database."""
     with app.app_context():
         db.app = app
         db.init_app(app)
+        db.create_all()
 
 
 class PlaylistSong(db.Model):
@@ -128,14 +132,26 @@ class User(db.Model):
         "Authorization" : "Basic " + auth_base64,
         "Content-Type": "application/x-www-form-urlencoded" 
         }
+        
         data = {"grant_type": "client_credentials"}
 
-        result = post(url, headers=headers, data= data)
+        try:
+            result = post(url, headers=headers, data=data)
+            result.raise_for_status()
+            json_result = result.json()
 
-        json_result = json.loads(result.content)
-    
-        token = json_result['access_token']
-        return token
+            token = json_result.get("access_token")
+            if not token:
+                raise ValueError("Access token not found in response.")
+
+            return token
+        except RequestException as req_err:
+            logger.error("HTTP Request failed: %s", req_err)
+        except json.JSONDecodeError as json_err:
+            logger.error("Failed to decode JSON response: %s", json_err)
+        except Exception as err:
+            logger.error("An unexpected error occurred: %s", err)
+      
 
     @staticmethod
     def get_auth_header(token):
@@ -160,6 +176,7 @@ class User(db.Model):
         )
 
         db.session.add(user)
+        db.session.commit()
         return user
 
     @classmethod
@@ -168,11 +185,8 @@ class User(db.Model):
 
         user = cls.query.filter_by(username=username).first()
 
-        if user:
-            is_auth = bcrypt.check_password_hash(user.password, password)
-            if is_auth:
-                return user
-
+        if user and bcrypt.check_password_hash(user.password, password):
+            return user
         return False
     
 class Song(db.Model):
